@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['jwtauthentication.up.railway.app']
 
 
 # Application definition
@@ -95,14 +95,7 @@ SIMPLE_JWT = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Django',  
-        'USER': 'postgres',       
-        'PASSWORD': env('PG_PASSWORD'),   
-        'HOST': '127.0.0.1',           
-        'PORT': '5432',            
-    }
+    'default': env('DATABASE_URL'),
 }
 
 # Password validation
