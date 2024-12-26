@@ -13,14 +13,12 @@ from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.decorators import api_view
-from JWTAUth.settings import SECRET_KEY as secret_key
+from JWTAUth.settings import EMAIL_HOST_USER, SECRET_KEY as secret_key
 import jwt
 from jwt import ExpiredSignatureError
 from django.core.mail import send_mail
-from JWTAUth.settings import EMAIL_HOST_USER
 import random
-from datetime import datetime, timedelta, timezone
-from rest_framework.test import APIClient
+from datetime import datetime, timedelta
 
 def get_token(is_new, username, email, password):
     user = None
