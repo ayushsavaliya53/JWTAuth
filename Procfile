@@ -1,1 +1,1 @@
-web: gunicorn JWTAuth.wsgi:application
+web: gunicorn JWTAUth.wsgi:application
