@@ -14,6 +14,7 @@ from pathlib import Path
 import datetime
 from environ import Env
 import dj_database_url
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -95,7 +96,7 @@ SIMPLE_JWT = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(env('DATABASE_URL')),
+    'default': dj_database_url.parse(os.getenv('DATABASE_URL')),
 }
 
 # Password validation
@@ -153,3 +154,5 @@ EMAIL_HOST_USER = 'ayushsavaliya53@gmail.com'
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+CSRF_COOKIE_DOMAIN = '.up.railway.app'  
