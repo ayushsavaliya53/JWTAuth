@@ -110,11 +110,9 @@ class OTPView(generics.GenericAPIView):
         else:
             return Response({'message' : "Invalid Access"})
 
-
         if not otp or not expiry:
             return Response({'message': 'Session expired or invalid'})
         
-
         if datetime.now(expiry.tzinfo) > expiry:
             return Response({'message' : 'OTP has expired'})
         
