@@ -109,7 +109,6 @@ class OTPView(generics.GenericAPIView):
             password = user.password
         else:
             return Response({'message' : "Invalid Access"})
-        print(otp, request.data.get('otp'))
 
 
         if not otp or not expiry:
