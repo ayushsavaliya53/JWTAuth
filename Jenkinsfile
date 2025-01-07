@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ENV_FILE = credentials('env-file')
+        RAILWAY_API_TOKEN = credentials('railway-api-token')  // Example of injecting a secret token
     }
 
     stages {
