@@ -11,9 +11,9 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-token') {
-                        bash "docker build -t my-django-app ."
-                        bash "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
-                        bash "docker push ayushsavaliya53/my-django-app:latest"
+                        bat "docker build -t my-django-app ."
+                        bat "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
+                        bat "docker push ayushsavaliya53/my-django-app:latest"
                     }
                 }
             }
@@ -21,11 +21,10 @@ pipeline {
         stage('Deploy to Railway') {
             steps {
                 withCredentials([string(credentialsId: 'railway-api-token', variable: 'RAILWAY_TOKEN')]) {
-                    bash
-                    '''
-                    "curl -X POST "https://railway.app/api/deploy" \
-                        -H "Authorization: Bearer ${RAILWAY_TOKEN}" \
-                        -d '{"project_id": "e36b7193-669d-4831-9e2e-b8b979e05636"}'"
+                    bat '''
+                    bash -c "curl -X POST 'https://railway.app/api/deploy' \
+                        -H 'Authorization: Bearer ${RAILWAY_TOKEN}' \
+                        -d '{\"project_id\": \"e36b7193-669d-4831-9e2e-b8b979e05636\"}'"
                     '''
                 }
             }
