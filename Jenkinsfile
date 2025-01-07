@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/ayushsavaliya53/JWTAuth.git'
+                git branch: 'main', url: 'https://github.com/ayushsavaliya53/JWTAuth.git'
             }
         }
         stage('Build and Push Docker Image') {
