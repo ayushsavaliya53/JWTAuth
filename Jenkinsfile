@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        ENV_FILE = credentials('env-file')
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
