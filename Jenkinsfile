@@ -13,7 +13,7 @@ pipeline {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-token') {
                         bash "docker build -t my-django-app ."
                         bash "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
-                        bash -c "docker push ayushsavaliya53/my-django-app:latest"
+                        bash "docker push ayushsavaliya53/my-django-app:latest"
                     }
                 }
             }
