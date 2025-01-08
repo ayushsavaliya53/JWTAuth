@@ -45,7 +45,7 @@ def UserView(req):
             if token.startswith("Bearer "):
                 token = token.split("Bearer ")[1]
             elif not token:
-                return Response({'message' : 'no token fetched'})
+                return Response({'message' : 'No Token Fetched'})
             else:
                 return Response({'message' : 'invalid token'})
             
