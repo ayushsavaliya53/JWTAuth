@@ -14,28 +14,28 @@ pipeline {
             }
         }
         stage('Build and Push Docker Image') {
-    steps {
-        script {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-token') {
-                withCredentials([
-                    string(credentialsId: 'SECRET_KEY', variable: 'SECRET_KEY'),
-                    string(credentialsId: 'EMAIL_HOST_PASSWORD', variable: 'EMAIL_HOST_PASSWORD'),
-                    string(credentialsId: 'DATABASE_URL', variable: 'DATABASE_URL')
-                ]) {
-                    bat """
-                        docker build ^
-                            --build-arg SECRET_KEY="%SECRET_KEY%" ^
-                            --build-arg EMAIL_HOST_PASSWORD="%EMAIL_HOST_PASSWORD%" ^
-                            --build-arg DATABASE_URL="%DATABASE_URL%" ^
-                            -t my-django-app .
-                    """
-                    bat "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
-                    bat "docker push ayushsavaliya53/my-django-app:latest"
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-token') {
+                        withCredentials([
+                            string(credentialsId: 'SECRET_KEY', variable: 'SECRET_KEY'),
+                            string(credentialsId: 'EMAIL_HOST_PASSWORD', variable: 'EMAIL_HOST_PASSWORD'),
+                            string(credentialsId: 'DATABASE_URL', variable: 'DATABASE_URL')
+                        ]) {
+                            bat """
+                                docker build ^
+                                    --build-arg SECRET_KEY="%SECRET_KEY%" ^
+                                    --build-arg EMAIL_HOST_PASSWORD="%EMAIL_HOST_PASSWORD%" ^
+                                    --build-arg DATABASE_URL="%DATABASE_URL%" ^
+                                    -t my-django-app .
+                            """
+                            bat "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
+                            bat "docker push ayushsavaliya53/my-django-app:latest"
+                        }
+                    }
                 }
             }
         }
-    }
-}
 
         stage('Deploy to Railway') {
             steps {
