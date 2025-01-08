@@ -34,7 +34,7 @@ def get_token(is_new, username, email, password):
         return Response({'token': str(token)})
             
     else:
-        return Response({"message": "Invalid credentials"})
+        return Response({"message": "Invalid Credentials"})
 
 
 @api_view(['POST', 'GET'])
