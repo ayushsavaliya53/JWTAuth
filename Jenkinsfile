@@ -14,16 +14,29 @@ pipeline {
             }
         }
         stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-token') {
-                        bat "docker build -t my-django-app ."
-                        bat "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
-                        bat "docker push ayushsavaliya53/my-django-app:latest"
-                    }
+    steps {
+        script {
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-token') {
+                // Pass Jenkins environment variables to Docker build
+                withEnv([
+                    "SECRET_KEY=${env.SECRET_KEY}",
+                    "EMAIL_HOST_PASSWORD=${env.EMAIL_HOST_PASSWORD}",
+                    "DATABASE_URL=${env.DATABASE_URL}"
+                ]) {
+                    // Build Docker image with environment variables
+                    bat """
+                        docker build --build-arg SECRET_KEY=${env.SECRET_KEY} \
+                                     --build-arg EMAIL_HOST_PASSWORD=${env.EMAIL_HOST_PASSWORD} \
+                                     --build-arg DATABASE_URL=${env.DATABASE_URL} \
+                                     -t my-django-app .
+                    """
+                    bat "docker tag my-django-app ayushsavaliya53/my-django-app:latest"
+                    bat "docker push ayushsavaliya53/my-django-app:latest"
                 }
             }
         }
+    }
+}
         stage('Deploy to Railway') {
             steps {
                 withCredentials([string(credentialsId: 'railway-api-token', variable: 'RAILWAY_TOKEN')]) {
