@@ -10,7 +10,6 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                bat "echo $SECRET_KEY"
                 git branch: 'main', url: 'https://github.com/ayushsavaliya53/JWTAuth.git'
             }
         }
