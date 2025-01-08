@@ -4,13 +4,13 @@ pipeline {
     environment {
         SECRET_KEY = credentials('SECRET_KEY')
         EMAIL_HOST_PASSWORD = credentials('EMAIL_HOST_PASSWORD')
-        DATABASE_URL = credentials('SECRET_KEY')
+        DATABASE_URL = credentials('DATABASE_URL')
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://githgitub.com/ayushsavaliya53/JWTAuth.git'
+                git branch: 'main', url: 'https://github.com/ayushsavaliya53/JWTAuth.git'
             }
         }
         stage('Build and Push Docker Image') {
