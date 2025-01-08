@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     environment {
-        RAILWAY_API_TOKEN = credentials('railway-api-token')  // Example of injecting a secret token
+        SECRET_KEY = credentials('SECRET_KEY')
+        EMAIL_HOST_PASSWORD = credentials('EMAIL_HOST_PASSWORD')
+        DATABASE_URL = credentials('DATABASE_URL')
     }
 
     stages {
