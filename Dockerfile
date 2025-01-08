@@ -11,6 +11,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
+ARG SECRET_KEY
+ARG EMAIL_HOST_PASSWORD
+ARG DATABASE_URL
+
+# Set environment variables
+ENV SECRET_KEY=${SECRET_KEY}
+ENV EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Collect static files (if required for deployment)
 RUN python manage.py collectstatic --noinput
 

@@ -4,13 +4,12 @@ pipeline {
     environment {
         SECRET_KEY = credentials('SECRET_KEY')
         EMAIL_HOST_PASSWORD = credentials('EMAIL_HOST_PASSWORD')
-        DATABASE_URL = credentials('SECRET_KEY')
+        DATABASE_URL = credentials('DATABASE_URL')
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                bat "echo $SECRET_KEY"
                 git branch: 'main', url: 'https://github.com/ayushsavaliya53/JWTAuth.git'
             }
         }
@@ -23,7 +22,6 @@ pipeline {
                     string(credentialsId: 'EMAIL_HOST_PASSWORD', variable: 'EMAIL_HOST_PASSWORD'),
                     string(credentialsId: 'DATABASE_URL', variable: 'DATABASE_URL')
                 ]) {
-                    // Pass secrets to Docker securely
                     bat """
                         docker build ^
                             --build-arg SECRET_KEY="%SECRET_KEY%" ^
@@ -38,6 +36,7 @@ pipeline {
         }
     }
 }
+
         stage('Deploy to Railway') {
             steps {
                 withCredentials([string(credentialsId: 'railway-api-token', variable: 'RAILWAY_TOKEN')]) {
